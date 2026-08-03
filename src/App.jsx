@@ -22,6 +22,10 @@ import {
   SiOpenjdk,
 } from 'react-icons/si';
 
+// ==================== IMPORTAÇÃO DAS IMAGENS LOCAIS ====================
+import NintendoDSLogo from './assets/Nintendo_DS_Logo.svg.webp';
+import NintendoWiiLogo from './assets/Wii.svg.webp';
+
 // ==================== ESTILOS GLOBAIS ====================
 const GlobalStyle = createGlobalStyle`
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -91,7 +95,7 @@ const HeroSection = styled.section`
 const Name = styled.h1`
   font-family: 'Quicksand', sans-serif;
   font-weight: 700;
-  font-size: clamp(3rem, 10vw, 5rem);
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
   color: #1e293b;
   margin-bottom: 0.3rem;
   line-height: 1.1;
@@ -110,9 +114,35 @@ const Frase = styled.p`
   font-size: clamp(1rem, 2.5vw, 1.3rem);
   color: #ff6b6b;
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   font-weight: 600;
   font-style: italic;
+`;
+
+const LangPills = styled.div`
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
+
+const LangPill = styled.span`
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.85rem;
+  color: #64748b;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(6px);
+  border: 1px solid ${({ $color }) => $color}30;
+  border-radius: 2rem;
+  padding: 0.35rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+`;
+
+const LangLevel = styled.strong`
+  color: ${({ $color }) => $color};
+  font-weight: 700;
 `;
 
 const SectionTitle = styled.h2`
@@ -184,7 +214,6 @@ const ProjectLink = styled.a`
   &:hover { gap: 0.7rem; text-decoration: underline; }
 `;
 
-// Botão de mute no canto inferior direito
 const MuteButton = styled.button`
   position: fixed;
   bottom: 1.5rem;
@@ -273,6 +302,12 @@ const OpinacashIcon = () => (
 );
 
 // ==================== DADOS ====================
+const languages = [
+  { lang: "Português", level: "Nativo", flag: "🇧🇷", color: "#4ecdc4" },
+  { lang: "Español", level: "Nativo", flag: "🇪🇸", color: "#ff6b6b" },
+  { lang: "English", level: "Fluente", flag: "🇺🇸", color: "#4ecdc4" },
+];
+
 const experiences = [
   {
     role: "Full Stack Developer (Freelance)",
@@ -284,6 +319,17 @@ const experiences = [
       "APIs REST com Node.js, Express e Sequelize garantindo consistência de dados."
     ],
     icon: <OpinacashIcon />
+  },
+  {
+    role: "Full Stack Developer",
+    company: "2US",
+    period: "Jan 2026 – Presente",
+    achievements: [
+      "Arquiteturei API REST com Java Spring Boot e JWT, reduzindo 30% do tempo de desenvolvimento.",
+      "Sistema de convite por código único de 6 caracteres com validação de status.",
+      "Módulos de finanças, calendário e wishlist com progresso visual e ranking."
+    ],
+    icon: <GamepadIcon />
   },
   {
     role: "Frontend Developer (Jr.)",
@@ -482,6 +528,7 @@ export default function App() {
         </div>
 
         <Container>
+          {/* ========== HERO ========== */}
           <HeroSection>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -491,9 +538,19 @@ export default function App() {
               <Name>Paulo Marcelo Moreno Pacheco</Name>
               <Title>Fullstack Developer</Title>
               <Frase>“Fazendo meu sonho de infância ser realidade.”</Frase>
+
+              <LangPills>
+                {languages.map(({ lang, level, flag, color }) => (
+                  <LangPill key={lang} $color={color}>
+                    <span style={{ fontSize: "1rem", lineHeight: 1 }}>{flag}</span>
+                    {lang} · <LangLevel $color={color}>{level}</LangLevel>
+                  </LangPill>
+                ))}
+              </LangPills>
             </motion.div>
           </HeroSection>
 
+          {/* ========== EXPERIÊNCIA ========== */}
           <SectionTitle>Experiência</SectionTitle>
           <Grid>
             {experiences.map((exp, i) => (
@@ -520,6 +577,7 @@ export default function App() {
             ))}
           </Grid>
 
+          {/* ========== PROJETOS ========== */}
           <SectionTitle>Projetos</SectionTitle>
           <Grid>
             {projects.map((proj, i) => (
@@ -556,6 +614,7 @@ export default function App() {
             ))}
           </Grid>
 
+          {/* ========== STACK ========== */}
           <SectionTitle>Stack</SectionTitle>
           <GlassCard
             initial={{ opacity: 0 }}
@@ -586,6 +645,7 @@ export default function App() {
             ))}
           </GlassCard>
 
+          {/* ========== CONTATO ========== */}
           <Footer>
             <motion.div
               initial={{ opacity: 0 }}
@@ -626,8 +686,41 @@ export default function App() {
                 <FiGithub /> github.com/PauloTorrente
               </a>
             </motion.div>
-            <p style={{ color: "#94a3b8", fontSize: "0.85rem" }}>
-              © 2026 — Um portfolio com alma de console.
+
+            {/* Copyright com logos locais da Nintendo */}
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.5rem",
+              flexWrap: "wrap",
+              color: "#94a3b8",
+              fontSize: "0.85rem",
+            }}>
+              <span>© 2026 — Inspirado no</span>
+
+              <img
+                src={NintendoDSLogo}
+                alt="Nintendo DS"
+                style={{ height: "20px", opacity: 0.7 }}
+              />
+
+              <span>e</span>
+
+              <img
+                src={NintendoWiiLogo}
+                alt="Nintendo Wii"
+                style={{ height: "18px", opacity: 0.7 }}
+              />
+            </div>
+
+            <p style={{
+              color: "#cbd5e1",
+              fontSize: "0.7rem",
+              marginTop: "0.5rem",
+              letterSpacing: "0.5px",
+            }}>
+              com alma de console e coração de dev
             </p>
           </Footer>
         </Container>
