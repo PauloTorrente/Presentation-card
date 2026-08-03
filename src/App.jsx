@@ -488,7 +488,7 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <Name>Paulo Torrente</Name>
+              <Name>Paulo Marcelo Moreno Pacheco</Name>
               <Title>Fullstack Developer</Title>
               <Frase>“Fazendo meu sonho de infância ser realidade.”</Frase>
             </motion.div>
